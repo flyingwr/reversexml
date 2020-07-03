@@ -76,11 +76,10 @@ const reverse_xml = function(xml) {
 		let grounds_data = read_xml_grounds(xml);
 		if (grounds_data.length > 1) { // The length of this array is always 1 if no ground is found in XML
 			let grounds_data_str = "";
-
 			for (let i = 0; i < grounds_data.length; i++) {
 				let ground_data = grounds_data[i];
 				let [prev_x, new_x] = reverse_element_coord(map_width, ground_data);
-				let new_properties = reverse_ground_angle(ground_data)
+				let new_properties = reverse_ground_angle(ground_data);
 				if (prev_x && new_x) {
 					ground_data = ground_data.replace(prev_x, new_x);
 				}
@@ -90,14 +89,12 @@ const reverse_xml = function(xml) {
 
 				grounds_data_str = grounds_data_str + "<S {attr}/>".format({attr: ground_data});
 			}
-
 			xml = xml.replace(/<S>.*?<\/S>/, "<S>{grounds}</S>".format({grounds: grounds_data_str}));
 		}
 
 		let objects_data = read_xml_objects(xml);
 		if (objects_data.length > 0) {
 			let objects_data_str = "";
-
 			for (let i = 0; i < objects_data.length; i++) {
 				let object_data = objects_data[i].attr;
 				let [prev_x, new_x] = reverse_element_coord(map_width, object_data);
@@ -107,10 +104,9 @@ const reverse_xml = function(xml) {
 				
 				objects_data_str = objects_data_str + "<{type} {attr}/>".format({type: objects_data[i].type, attr: object_data});
 			}
-
-			xml = xml.replace(/<D>.*?<\/D>/, "<D>{obejcts}</D>".format({obejcts: objects_data_str}));
+			xml = xml.replace(/<D>.*?<\/D>/, "<D>{objects}</D>".format({objects: objects_data_str}));
 		}
-
+		
 		return xml;
 	}
 
@@ -120,7 +116,7 @@ const reverse_xml = function(xml) {
 // String adaptation
 String.prototype.format = function(placeholders) {
 	let s = this;
-	for(let property_name in placeholders) {
+	for (let property_name in placeholders) {
 	    let re = new RegExp("{" + property_name + "}", "gm");
 	    s = s.replace(re, placeholders[property_name]);
 	}    
