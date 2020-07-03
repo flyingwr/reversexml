@@ -24,7 +24,7 @@ const read_xml_grounds = function(xml) {
 const read_xml_objects = function(xml) {
 	let objects = [];
 
-	let re = /<([FT*]) (.*?)\/>/g;
+	let re = /<([FT]|DS) (.*?)\/>/g;
 	let m;
 	do {
 	    m = re.exec(xml);
